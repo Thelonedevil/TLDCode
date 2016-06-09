@@ -19,7 +19,8 @@ ATM there are 13,symbols recognised:
 | r      | reverse()        | Reverse the stacks order                                                                                                   |
 | s      | sum()            | Sums the stack together, then pushes the results to the stack, integers, floating points,strings                           |
 | P      | popPrint()       | Pops the top off the stack, and prints it                                                                                  |
-| [\d]    |                   | a Number, repeats the following symbol that many times
+| '      |                  | Pushes all characters following onto the stack until next '                                                                |
+| [\d]    |                   | a Number, repeats the following symbol that many times                                                                   |
 
 An example Hello, World! program looks like this:
 
@@ -47,3 +48,45 @@ will rotate the stack to the right once, leaving the stack as
 ```
 ! A B C D E F G H I J K L
 ```
+and so on till the end
+```
+s
+```
+this joins the string together
+
+```
+P
+```
+prints the head of the stack
+
+A simpler Hello, World! would be
+```
+=\"Hello, World!\"sP
+```
+
+How it works
+
+```
+=
+```
+clears the stack of the default input
+
+```
+'
+```
+escapes the " character so the command line parses it correctly, then signals that what follows is a string
+
+```
+'
+```
+signals the end of the string
+
+```
+s
+```
+this joins the string together
+
+```
+P
+```
+prints the head of the stack
