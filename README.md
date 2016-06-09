@@ -21,8 +21,29 @@ ATM there are 13,symbols recognised:
 | P      | popPrint()       | Pops the top off the stack, and prints it                                                                                  |
 | [\d]    |                   | a Number, repeats the following symbol that many times
 
-An exmaple Hello, World! program looks like this:
+An example Hello, World! program looks like this:
 
 ```
 44->24+>33+>40+>38+>15+>39->26->42+>40+>41+>35+>7+>sP
+```
+How it works
+```
+44-
+```
+will decrement the head of the stack 44 times, because no input was specified the stack contains 
+```
+A B C D E F G H I J K L M
+```
+since M is at the head, it become !. This is because M is 77 and ! is 33
+
+this leaves the stack as
+```
+A B C D E F G H I J K L !
+```
+```
+>
+```
+will rotate the stack to the right once, leaving the stack as
+```
+! A B C D E F G H I J K L
 ```
