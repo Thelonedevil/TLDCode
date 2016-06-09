@@ -19,6 +19,7 @@ ATM there are 13,symbols recognised:
 | r      | reverse()        | Reverse the stacks order                                                                                                   |
 | s      | sum()            | Sums the stack together, then pushes the results to the stack, integers, floating points,strings                           |
 | P      | popPrint()       | Pops the top off the stack, and prints it                                                                                  |
+| [\d]    |                   | a Number, repeats the following symbol that many times
 
 An exmaple Hello, World! program looks like this:
 
