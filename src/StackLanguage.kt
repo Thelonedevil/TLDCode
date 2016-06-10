@@ -1,3 +1,5 @@
+import java.util.*
+
 var stack = Stack()
 var input: List<String>? = null
 val mappings = hashMapOf(
@@ -15,6 +17,7 @@ val mappings = hashMapOf(
         "s" to { functions.sum() },
         "P" to { functions.popPrint() }
 )
+val variables = HashMap<String, Any>()
 
 fun main(args: Array<String>) {
     val code = args[0]
@@ -23,32 +26,57 @@ fun main(args: Array<String>) {
     }
     var loop = 0
     var string = false
+    var variable = false
+    var currentVariableName = ""
     functions.pushInput()
     functions.parseStack()
     code.split("").forEach {
         val key = it
         if (key == "'") {
             string = !string
-        } else
-            if (string) {
-                stack.push(it)
-            } else {
-                if (key.length > 0 && key[0].isDigit()) {
-                    if (loop > 0) {
-                        loop = (loop.toString() + key).toInt()
-                    } else {
-                        loop = key.toInt()
-                    }
-                } else {
-                    if (loop == 0) {
-                        loop = 1
-                    }
-                    while (loop > 0) {
-                        loop--
-                        mappings[key.toString()]?.invoke()
-                    }
+            return@forEach
+        }
+        if (string) {
+            stack.push(it)
+            return@forEach
+        }
+        if(key == "%"){
+            if(!currentVariableName.isBlank() ) {
+                if(!variables.containsKey(currentVariableName)) {
+                    variables[currentVariableName] = stack.peek()
+                }else {
+                    stack.push(variables[currentVariableName]!!)
                 }
+                currentVariableName = ""
+                variable = !variable
+                return@forEach
+
             }
+            variable = !variable
+            return@forEach
+        }
+        if(variable){
+            currentVariableName+=it
+            return@forEach
+        }
+
+        if (key.length > 0 && key[0].isDigit()) {
+            if (loop > 0) {
+                loop = (loop.toString() + key).toInt()
+                return@forEach
+            } else {
+                loop = key.toInt()
+                return@forEach
+            }
+        }
+        if (loop == 0) {
+            loop = 1
+        }
+        while (loop > 0) {
+            loop--
+            mappings[key.toString()]?.invoke()
+        }
+
     }
     if (!(code.endsWith("P") || code.endsWith("D"))) {
         functions.debug()
