@@ -30,7 +30,7 @@ ATM there are 13,symbols recognised:
 An example Hello, World! program looks like this:
 
 ```
-44->24+>33+>40+>38+>15+>39->26->42+>40+>41+>35+>7+>sP
+44->24+>33+>40+>38+>15+>39->26->42+>40+>41+>35+>7+>jP
 ```
 How it works
 ```
@@ -55,7 +55,7 @@ will rotate the stack to the right once, leaving the stack as
 ```
 and so on till the end
 ```
-s
+j
 ```
 this joins the string together
 
@@ -66,7 +66,7 @@ prints the head of the stack
 
 A simpler Hello, World! would be
 ```
-=\"Hello, World!\"sP
+='Hello, World!'jP
 ```
 
 How it works
@@ -87,7 +87,7 @@ escapes the " character so the command line parses it correctly, then signals th
 signals the end of the string
 
 ```
-s
+j
 ```
 this joins the string together
 
