@@ -27,71 +27,85 @@ ATM there are 13,symbols recognised:
 | {      |                  | Starts a repeatable code block |
 | }      |                  | Ends a repeatable code block |
 
-An example Hello, World! program looks like this:
+## Examples
+1. An example Hello, World! program looks like this:
+  
+  ```
+  44->24+>33+>40+>38+>15+>39->26->42+>40+>41+>35+>7+>jP
+  ```
+  How it works
+  ```
+  44-
+  ```
+  will decrement the head of the stack 44 times, because no input was specified the stack contains 
+  ```
+  A B C D E F G H I J K L M
+  ```
+  since M is at the head, it become !. This is because M is 77 and ! is 33
+  
+  this leaves the stack as
+  ```
+  A B C D E F G H I J K L !
+  ```
+  ```
+  >
+  ```
+  will rotate the stack to the right once, leaving the stack as
+  ```
+  ! A B C D E F G H I J K L
+  ```
+  and so on till the end
+  ```
+  j
+  ```
+  this joins the string together
+  
+  ```
+  P
+  ```
+  prints the head of the stack
 
-```
-44->24+>33+>40+>38+>15+>39->26->42+>40+>41+>35+>7+>jP
-```
-How it works
-```
-44-
-```
-will decrement the head of the stack 44 times, because no input was specified the stack contains 
-```
-A B C D E F G H I J K L M
-```
-since M is at the head, it become !. This is because M is 77 and ! is 33
+2. A simpler Hello, World! would be
 
-this leaves the stack as
-```
-A B C D E F G H I J K L !
-```
-```
->
-```
-will rotate the stack to the right once, leaving the stack as
-```
-! A B C D E F G H I J K L
-```
-and so on till the end
-```
-j
-```
-this joins the string together
+  ```
+  ='Hello, World!'jP
+  ```
+  
+  How it works
+  
+  ```
+  =
+  ```
+  clears the stack of the default input
+  
+  ```
+  '
+  ```
+  signals that what follows is a string
+  
+  ```
+  '
+  ```
+  signals the end of the string
+  
+  ```
+  j
+  ```
+  this joins the string together
+  
+  ```
+  P
+  ```
+  prints the head of the stack
+3. An example of repeatble code blocks
 
-```
-P
-```
-prints the head of the stack
-
-A simpler Hello, World! would be
-```
-='Hello, World!'jP
-```
-
-How it works
-
-```
-=
-```
-clears the stack of the default input
-
-```
-'
-```
-escapes the " character so the command line parses it correctly, then signals that what follows is a string
-
-```
-'
-```
-signals the end of the string
-
-```
-j
-```
-this joins the string together
-
-```
-P
-```
-prints the head of the stack
+  ```
+  ='Hello, World!'10{jPn}=
+  ```
+  this is almost the same as example 2, but it repeats the joining and printing, as well as now printing a new line at the end, 10 times.
+  
+  Note the
+  ```
+  =
+  ```
+  at the end, this is to clear the stack, this is done because, if the last function isnt printing or debug, it runs the debug function, which prints the whole stack. The printing in the code block doesnt count as printing at the end, so we clear the stack, since an empty stack has nothing to print.
