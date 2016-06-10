@@ -19,7 +19,7 @@ ATM there are 13,symbols recognised:
 | s      | sum()            | Sums the stack together, then pushes the results to the stack, integers, floating points,strings                              |
 | P      | popPrint()       | Pops the top off the stack, and prints it                                                                                     |
 | '      |                  | Pushes all characters following onto the stack until next '                                                                   |
-| [\d]    |                   | a Number, repeats the following symbol that many times                                                                       |
+| [\d]    |                   | a Number, repeats the following symbol, or code block, that many times                                                                       |
 | %      |                  | Starts reading a variable name until it finds a closing %, if it doesn't exist, it copies the top of the stack into that variable, otherwise it pushes it onto the top of the stack|
 | j      | join()           | Joins all elements in the stack as a string |
 | ,      | comma()          | Interleaves a comma between each element in the stack |
