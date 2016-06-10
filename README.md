@@ -24,6 +24,8 @@ ATM there are 13,symbols recognised:
 | j      | join()           | Joins all elements in the stack as a string |
 | ,      | comma()          | Interleaves a comma between each element in the stack |
 | n      | println()        | Prints a new line |
+| {      |                  | Starts a repeatable code block |
+| }      |                  | Ends a repeatable code block |
 
 An example Hello, World! program looks like this:
 
