@@ -140,4 +140,17 @@ object functions {
     fun popPrint() {
         print(stack.pop())
     }
+
+    fun join() {
+        var result = ""
+        stack.forEach { result+=it.toString() }
+        stack.push(result)
+    }
+
+    fun comma() {
+        val temp = Stack()
+        stack.forEach { temp.push(it);temp.push(",") }
+        temp.pop()
+        stack = temp
+    }
 }

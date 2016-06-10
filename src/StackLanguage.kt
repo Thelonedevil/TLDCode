@@ -15,7 +15,10 @@ val mappings = hashMapOf(
         "«" to { functions.decrementStack() },
         "r" to { functions.reverse() },
         "s" to { functions.sum() },
-        "P" to { functions.popPrint() }
+        "P" to { functions.popPrint() },
+        "j" to { functions.join() },
+        "," to { functions.comma() },
+        "n" to { println()}
 )
 val variables = HashMap<String, Any>()
 
@@ -24,93 +27,7 @@ fun main(args: Array<String>) {
     if (args.size > 1) {
         input = args.slice(1..args.size).toList()
     }
-    var loop = 0
-    var string = false
-    var variable = false
-    var currentVariableName = ""
-    functions.pushInput()
-    functions.parseStack()
-    code.split("").forEach {
-        val key = it
-        if (key == "'") {
-            string = !string
-            return@forEach
-        }
-        if (string) {
-            stack.push(it)
-            return@forEach
-        }
-        if(key == "%"){
-            if(!currentVariableName.isBlank() ) {
-                if(!variables.containsKey(currentVariableName)) {
-                    variables[currentVariableName] = stack.peek()
-                }else {
-                    stack.push(variables[currentVariableName]!!)
-                }
-                currentVariableName = ""
-                variable = !variable
-                return@forEach
+    val parser = Parser()
+    parser.parseCode(code)
 
-            }
-            variable = !variable
-            return@forEach
-        }
-        if(variable){
-            currentVariableName+=it
-            return@forEach
-        }
-
-        if (key.length > 0 && key[0].isDigit()) {
-            if (loop > 0) {
-                loop = (loop.toString() + key).toInt()
-                return@forEach
-            } else {
-                loop = key.toInt()
-                return@forEach
-            }
-        }
-        if (loop == 0) {
-            loop = 1
-        }
-        while (loop > 0) {
-            loop--
-            mappings[key.toString()]?.invoke()
-        }
-
-    }
-    if (!(code.endsWith("P") || code.endsWith("D"))) {
-        functions.debug()
-    }
-}
-
-fun testFunctions() {
-    setup()
-    functions.debug()
-    setup()
-    functions.incrementHead()
-    functions.debug()
-    setup()
-    functions.incrementStack()
-    functions.debug()
-    setup()
-    functions.rotateRight()
-    functions.debug()
-    setup()
-    functions.rotateLeft()
-    functions.debug()
-    setup()
-    functions.incrementHead()
-    functions.rotateRight()
-    functions.incrementHead()
-    functions.rotateLeft()
-    functions.debug()
-}
-
-fun setup() {
-    stack.clear()
-    println()
-    functions.pushInput()
-    functions.parseStack()
-    functions.debug()
-    print(" ->")
 }
