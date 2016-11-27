@@ -37,12 +37,14 @@ ATM there are 31,symbols recognised:
 | V      | popTail          | Pops the bottom of the stack off  |
 
 There are also a few flags that can be used
+
 | Flag  | Long Form | ShortForm | Description   |
 |-------|-----------|-----------|---------------|
 | Code  | --code    | -c        | Specifies the code for the program    |
 | File  | --file    | -f        | Specifies a file that contains the code for the program   |
 | REPL  |           | -r        | Launches a REPL environment   |
 | Input | --input   | -i        | specifies a comma separated list of inputs    |
+
 ## Examples
 1. An example Hello, World! program looks like this:
   
