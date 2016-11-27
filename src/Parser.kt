@@ -1,12 +1,13 @@
 class Parser {
     var loop = 0
+    var charArray = false
     var string = false
+    var tempstring = ""
     var variable = false
     var block = false
     var currentVariableName = ""
     var currentBlock = ""
     var executeBlock = false
-
 
     fun parseCode(code: String, master: Boolean = true) {
         if (master) {
@@ -20,12 +21,12 @@ class Parser {
                 if (it.length == 0) {
                     return@forEach
                 }
-                if (!string && it == "{") {
+                if (!charArray && !string && it == "{") {
                     block = true
                     currentBlock = ""
                     return@forEach
                 }
-                if (!string && it == "}") {
+                if (!charArray && !string && it == "}") {
                     block = false
                     executeBlock = true
                 }
@@ -33,12 +34,24 @@ class Parser {
                     currentBlock += it
                     return@forEach
                 }
-                if (it == "'") {
+                if (!string && it == "'") {
+                    charArray = !charArray
+                    return@forEach
+                }
+                if (!charArray && it == "#") {
                     string = !string
+                    if(tempstring != "") {
+                        stack.push(tempstring)
+                    }
+                    tempstring = ""
+                    return@forEach
+                }
+                if (charArray) {
+                    stack.push(it)
                     return@forEach
                 }
                 if (string) {
-                    stack.push(it)
+                    tempstring += it
                     return@forEach
                 }
 
@@ -58,11 +71,11 @@ class Parser {
                     currentVariableName += it
                     return@forEach
                 }
-                if(it == "S"){
+                if (it == "S") {
                     loop += stack.size
                     return@forEach
                 }
-                if(it == "$"){
+                if (it == "$") {
                     loop += stack.pop().toString().toInt()
                     return@forEach
                 }

@@ -18,7 +18,8 @@ ATM there are 31,symbols recognised:
 | r      | reverse()        | Reverse the stacks order                                                                                                      |
 | s      | sum()            | Sums the top two items in the stack                              |
 | P      | popPrint()       | Pops the top off the stack, and prints it                                                                                     |
-| '      |                  | Pushes all characters following onto the stack until next '                                                                   |
+| '      |                  | Pushes the following characters (character by character) onto the stack until next '                                          |
+| #      |                  | Pushes the following characters onto the stack as a single sequence until next #                                             |
 | [\d]   |                  | a Number, repeats the following symbol, or code block, that many times                                                                       |
 | %      |                  | Starts reading a variable name until it finds a closing %, if it doesn't exist, it copies the top of the stack into that variable, otherwise it pushes it onto the top of the stack|
 | j      | join()           | Joins all elements in the stack as a string |
