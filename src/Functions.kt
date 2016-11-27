@@ -4,13 +4,13 @@ import java.math.BigInteger
 object functions {
     fun pushInput() {
         if (input == null) {
-            "A B C D E F G H I J K L M".split(" ").forEach { stack.push(it) }
+            "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split(" ").forEach { stack.push(it) }
             return
         }
         input?.forEach { stack.push(it) }
     }
 
-    fun debug(){
+    fun debug() {
         stack.forEach { print(" " + it) }
     }
 
@@ -119,7 +119,7 @@ object functions {
         stack = temp
     }
 
-    fun sum() {
+    fun sumBackup() {
         var intresult = BigInteger.ZERO
         var decimalresult = BigDecimal.ZERO
         var stringresult = ""
@@ -136,14 +136,23 @@ object functions {
         stack.push(decimalresult)
         stack.push(stringresult)
     }
-
+    fun popHead(){
+        stack.pop()
+    }
+    fun popTail(){
+        stack.popLast()
+    }
     fun popPrint() {
         print(stack.pop())
     }
 
+    fun peekPrint() {
+        print(stack.peek())
+    }
+
     fun join() {
         var result = ""
-        stack.forEach { result+=it.toString() }
+        stack.forEach { result += it.toString() }
         stack.push(result)
     }
 
@@ -152,5 +161,81 @@ object functions {
         stack.forEach { temp.push(it);temp.push(",") }
         temp.pop()
         stack = temp
+    }
+
+    fun copy() {
+        stack.push(stack.peek())
+    }
+
+    fun sum() {
+        val temp = stack.pop()
+        val a: Number = if (temp.toString().contains(".")) BigDecimal(temp.toString()) else BigInteger(temp.toString())
+        val b: Number = if (stack.peek().toString().contains(".")) BigDecimal(stack.peek().toString()) else BigInteger(stack.peek().toString())
+        var result: Number = BigInteger.ZERO
+        if (a is BigInteger && b is BigInteger) {
+            result = a + b
+        } else if (a is BigInteger && b is BigDecimal) {
+            result = b + BigDecimal(a.toString())
+        } else if (a is BigDecimal && b is BigInteger) {
+            result = a + BigDecimal(b.toString())
+        } else if (a is BigDecimal && b is BigDecimal) {
+            result = a + b
+        }
+        stack.push(temp)
+        stack.push(result)
+    }
+
+    fun product() {
+        val temp = stack.pop()
+        val a: Number = if (temp.toString().contains(".")) BigDecimal(temp.toString()) else BigInteger(temp.toString())
+        val b: Number = if (stack.peek().toString().contains(".")) BigDecimal(stack.peek().toString()) else BigInteger(stack.peek().toString())
+        var result: Number = BigInteger.ZERO
+        if (a is BigInteger && b is BigInteger) {
+            result = a * b
+        } else if (a is BigInteger && b is BigDecimal) {
+            result = b * BigDecimal(a.toString())
+        } else if (a is BigDecimal && b is BigInteger) {
+            result = a * BigDecimal(b.toString())
+        } else if (a is BigDecimal && b is BigDecimal) {
+            result = a * b
+        }
+        stack.push(temp)
+        stack.push(result)
+    }
+
+    fun power() {
+        val temp = stack.pop()
+        val a: Number = if (temp.toString().contains(".")) BigDecimal(temp.toString()) else BigInteger(temp.toString())
+        val b: Number = if (stack.peek().toString().contains(".")) BigDecimal(stack.peek().toString()) else BigInteger(stack.peek().toString())
+        var result: Number = BigInteger.ZERO
+        if (a is BigInteger && b is BigInteger) {
+            result = a.pow(b.intValueExact())
+        } else if (a is BigInteger && b is BigDecimal) {
+            result = a.pow(b.intValueExact())
+        } else if (a is BigDecimal && b is BigInteger) {
+            result = a.pow(b.intValueExact())
+        } else if (a is BigDecimal && b is BigDecimal) {
+            result = a.pow(b.intValueExact())
+        }
+        stack.push(temp)
+        stack.push(result)
+    }
+
+    fun difference(){
+        val temp = stack.pop()
+        val a: Number = if (temp.toString().contains(".")) BigDecimal(temp.toString()) else BigInteger(temp.toString())
+        val b: Number = if (stack.peek().toString().contains(".")) BigDecimal(stack.peek().toString()) else BigInteger(stack.peek().toString())
+        var result: Number = BigInteger.ZERO
+        if (a is BigInteger && b is BigInteger) {
+            result = a - b
+        } else if (a is BigInteger && b is BigDecimal) {
+            result = b - BigDecimal(a.toString())
+        } else if (a is BigDecimal && b is BigInteger) {
+            result = a - BigDecimal(b.toString())
+        } else if (a is BigDecimal && b is BigDecimal) {
+            result = a - b
+        }
+        stack.push(temp)
+        stack.push(result)
     }
 }

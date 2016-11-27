@@ -15,6 +15,7 @@ class Parser {
         }
 
         code.split("").forEach {
+            variables["size"] = stack.size
             try {
                 if (it.length == 0) {
                     return@forEach
@@ -57,9 +58,14 @@ class Parser {
                     currentVariableName += it
                     return@forEach
                 }
-
-
-
+                if(it == "S"){
+                    loop += stack.size
+                    return@forEach
+                }
+                if(it == "$"){
+                    loop += stack.pop().toString().toInt()
+                    return@forEach
+                }
                 if (it.length > 0 && it[0].isDigit()) {
                     if (loop > 0) {
                         loop = (loop.toString() + it).toInt()
@@ -81,6 +87,7 @@ class Parser {
                     mappings[it.toString()]?.invoke()
                 }
                 executeBlock = false
+                loop = 0
             } catch(t: Throwable) {
                 stack.forEach { System.err.print(" " + it) }
                 variables.forEach { k, v -> System.err.println(k + ": " + v) }

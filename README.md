@@ -16,24 +16,37 @@ ATM there are 13,symbols recognised:
 | -      | decrementHead()  | Decrements the head of the stack by 1 for numbers, and increments the code point by 1 for characters                          |
 | «      | decrementStack() | Decrements the full stack by 1 for numbers, and increments the code points by 1 for characters                                |
 | r      | reverse()        | Reverse the stacks order                                                                                                      |
-| s      | sum()            | Sums the stack together, then pushes the results to the stack, integers, floating points,strings                              |
+| s      | sum()            | Sums the top two items in the stack                              |
 | P      | popPrint()       | Pops the top off the stack, and prints it                                                                                     |
 | '      |                  | Pushes all characters following onto the stack until next '                                                                   |
-| [\d]    |                   | a Number, repeats the following symbol, or code block, that many times                                                                       |
+| [\d]   |                  | a Number, repeats the following symbol, or code block, that many times                                                                       |
 | %      |                  | Starts reading a variable name until it finds a closing %, if it doesn't exist, it copies the top of the stack into that variable, otherwise it pushes it onto the top of the stack|
 | j      | join()           | Joins all elements in the stack as a string |
 | ,      | comma()          | Interleaves a comma between each element in the stack |
 | n      | println()        | Prints a new line |
 | {      |                  | Starts a repeatable code block |
 | }      |                  | Ends a repeatable code block |
+| S      |                  | Repeats the following symbol, or code block, the amount of times of the size of the stack |
+| $      |                  | Repeats the following symbol, or code block, the amount of times of the value the top of the stack |
+| e      | peekPrint()      | Peeks at the top of the stack, and prints it |
+| c      | copy()           | Copies the top of the stack onto the top of the stack |
+| *      | product()        | Multiply the top two elements on the stack together   |
+| ^      | power()          | Returns the top of the stack to the power of the second from the top   |
+| d      | difference()     | Get the difference between the top two elements on the stack |
+| v      | popHead()        | Pops the top of the stack off |
+| V      | popTail          | Pops the bottom of the stack off  |
 
 ## Examples
 1. An example Hello, World! program looks like this:
   
   ```
-  44->24+>33+>40+>38+>15+>39->26->42+>40+>41+>35+>7+>jP
+  -c 44->24+>33+>40+>38+>15+>39->26->42+>40+>41+>35+>7+>jP
   ```
   How it works
+  ```
+  -c
+  ```
+   specifies that the next set of characters are the code
   ```
   44-
   ```
@@ -68,7 +81,7 @@ ATM there are 13,symbols recognised:
 2. A simpler Hello, World! would be
 
   ```
-  ='Hello, World!'jP
+  -c ='Hello, World!'jP
   ```
   
   How it works
@@ -97,10 +110,10 @@ ATM there are 13,symbols recognised:
   P
   ```
   prints the head of the stack
-3. An example of repeatble code blocks
+3. An example of repeatable code blocks
 
   ```
-  ='Hello, World!'10{jPn}=
+  -c ='Hello, World!'10{jPn}=
   ```
   this is almost the same as example 2, but it repeats the joining and printing, as well as now printing a new line at the end, 10 times.
   
@@ -109,3 +122,22 @@ ATM there are 13,symbols recognised:
   =
   ```
   at the end, this is to clear the stack, this is done because, if the last function isnt printing or debug, it runs the debug function, which prints the whole stack. The printing in the code block doesnt count as printing at the end, so we clear the stack, since an empty stack has nothing to print.
+4. An example fibonacci sequence
+
+  ```
+  -c '011'<2-${s},jP -i20
+  ```
+  the -i specifies a comma sepreated list of inputs
+  it then pushes 0,1,1 to the stack, and rotates left, bringing the 20 from the input to the to, it then decrementing it twice because we already have f1 and f2 on the stack
+  ```
+  $
+  ```
+  pops the top of the stack and uses its value to repeat the following code block
+  ```
+  s
+  ```
+  sums the top 2 elements in the stack and pushes the result
+  ```
+  ,jP
+  ```
+  interleaves a comma between each elements in the stack, joins them together as a string and prints
