@@ -1,7 +1,7 @@
 # TLDCode
 
 TLDCode is a stack based language that is still very much a WIP
-ATM there are 13,symbols recognised:
+ATM there are 31,symbols recognised:
 
 | Symbol | Function         | Description                                                                                                                   |
 |--------|------------------|-------------------------------------------------------------------------------------------------------------------------------|
@@ -36,6 +36,13 @@ ATM there are 13,symbols recognised:
 | v      | popHead()        | Pops the top of the stack off |
 | V      | popTail          | Pops the bottom of the stack off  |
 
+There are also a few flags that can be used
+| Flag  | Long Form | ShortForm | Description   |
+|-------|-----------|-----------|---------------|
+| Code  | --code    | -c        | Specifies the code for the program    |
+| File  | --file    | -f        | Specifies a file that contains the code for the program   |
+| REPL  |           | -r        | Launches a REPL environment   |
+| Input | --input   | -i        | specifies a comma separated list of inputs    |
 ## Examples
 1. An example Hello, World! program looks like this:
   
@@ -125,7 +132,7 @@ ATM there are 13,symbols recognised:
 4. An example fibonacci sequence
 
   ```
-  -c '011'<2-${s},jP -i20
+  -c '011'<2-$s,jP -i 20
   ```
   the -i specifies a comma sepreated list of inputs
   it then pushes 0,1,1 to the stack, and rotates left, bringing the 20 from the input to the to, it then decrementing it twice because we already have f1 and f2 on the stack

@@ -34,7 +34,7 @@ fun main(args: Array<String>) {
     var code = ""
     if (args.contains("-i")) {
         input = args[args.indexOf("-i") + 1].split(",")
-    } else if (args.contains("--inout")) {
+    } else if (args.contains("--input")) {
         input = args[args.indexOf("--input") + 1].split(",")
     }
     if (args.contains("-r")) {
