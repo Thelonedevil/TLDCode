@@ -4,7 +4,7 @@ import java.math.BigInteger
 class Stack() : java.util.ArrayDeque<Any>() {
 
     override fun push(it: Any) {
-        if (it is BigInteger || it is String || it is BigDecimal || it is Char) {
+        if (it is BigInteger || it is String || it is BigDecimal || it is Char|| it is Boolean) {
             super.addFirst(it)
         }
     }

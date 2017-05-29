@@ -27,15 +27,33 @@ ATM there are 31,symbols recognised:
 | n      | println()        | Prints a new line |
 | {      |                  | Starts a repeatable code block |
 | }      |                  | Ends a repeatable code block |
-| S      |                  | Repeats the following symbol, or code block, the amount of times of the size of the stack |
-| $      |                  | Repeats the following symbol, or code block, the amount of times of the value the top of the stack |
+| S      |                  | Repeats the following symbol, or repeatable code block, the amount of times of the size of the stack |
+| $      |                  | Repeats the following symbol, or repeatable code block, the amount of times of the value the top of the stack |
 | e      | peekPrint()      | Peeks at the top of the stack, and prints it |
 | c      | copy()           | Copies the top of the stack onto the top of the stack |
 | *      | product()        | Multiply the top two elements on the stack together   |
 | ^      | power()          | Returns the top of the stack to the power of the second from the top   |
 | d      | difference()     | Get the difference between the top two elements on the stack |
 | v      | popHead()        | Pops the top of the stack off |
-| V      | popTail          | Pops the bottom of the stack off  |
+| V      | popTail()        | Pops the bottom of the stack off  |
+| |      | split()          | Splits the top of the stack |
+| /      | division()       | Divides the top of the stack by the second from the top |
+| \      | prime()          | Tests whether or not the top of the stack is prime, returns result to top of stack |
+| G      | greater()        | Tests where or not the top of the stack is greater than the second from the top, returns result to top of stack |
+| L      | less()           | Tests where or not the top of the stack is less than the second from the top, returns result to top of stack |
+| E      | equals()         | Tests where or not the top of the stack is equal to the second from the top, returns result to top of stack |
+| &      | eval()           | Executes the top of the stack as code |
+| (      |                  | Starts a true code block, |
+| )      |                  | Ends a true code block |
+| [      |                  | Starts a false code block |
+| ]      |                  | Ends a false code block |
+
+| Code Block |Syntax | Description |
+|------------|-------|-------------|
+| Repeatable | {}    | A code block that can be repeated |
+| True       | ()    | A code block that is only executed if the top of the stack is true |
+| False      | []    | A code block that is only executed if the top of the stack is false |
+
 
 There are also a few flags that can be used
 
@@ -44,7 +62,7 @@ There are also a few flags that can be used
 | Code  | --code    | -c        | Specifies the code for the program    |
 | File  | --file    | -f        | Specifies a file that contains the code for the program   |
 | REPL  |           | -r        | Launches a REPL environment   |
-| Input | --input   | -i        | specifies a comma separated list of inputs    |
+| Input | --input   | -i        | specifies that all following arguments are input    |
 
 ## Examples
 1. An example Hello, World! program looks like this:
@@ -87,6 +105,7 @@ There are also a few flags that can be used
   P
   ```
   prints the head of the stack
+  
 
 2. A simpler Hello, World! would be
 
@@ -97,13 +116,15 @@ There are also a few flags that can be used
   How it works
   
   ```
-  =
+  \=
   ```
+  
   clears the stack of the default input
   
   ```
   '
   ```
+  
   signals that what follows is a string
   
   ```
@@ -120,6 +141,7 @@ There are also a few flags that can be used
   P
   ```
   prints the head of the stack
+  
 3. An example of repeatable code blocks
 
   ```
@@ -129,7 +151,7 @@ There are also a few flags that can be used
   
   Note the
   ```
-  =
+  \=
   ```
   at the end, this is to clear the stack, this is done because, if the last function isnt printing or debug, it runs the debug function, which prints the whole stack. The printing in the code block doesnt count as printing at the end, so we clear the stack, since an empty stack has nothing to print.
 4. An example fibonacci sequence

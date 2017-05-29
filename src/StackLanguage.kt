@@ -3,6 +3,7 @@ import java.util.*
 
 var stack = Stack()
 var input: List<String>? = null
+var debug = false
 val mappings = hashMapOf(
         "+" to { functions.incrementHead() },
         "_" to { functions.pushInput() },
@@ -26,29 +27,40 @@ val mappings = hashMapOf(
         "^" to { functions.power() },
         "d" to { functions.difference() },
         "v" to { functions.popHead() },
-        "V" to { functions.popTail() }
+        "V" to { functions.popTail() },
+        "|" to { functions.split() },
+        "/" to { functions.division() },
+        "\\" to { functions.prime() },
+        "G" to { functions.greater() },
+        "L" to { functions.less() },
+        "E" to { functions.equals() },
+        "&" to {functions.eval()}
 )
 val variables = HashMap<String, Any>()
 
 fun main(args: Array<String>) {
     var code = ""
     if (args.contains("-i")) {
-        input = args[args.indexOf("-i") + 1].split(",")
+        input = args.slice(args.indexOf("-i") + 1..args.size - 1)
     } else if (args.contains("--input")) {
-        input = args[args.indexOf("--input") + 1].split(",")
+        input = args.slice(args.indexOf("--input") + 1..args.size - 1)
+    }
+    if (args.contains("-d") || args.contains("--debug")) {
+        debug = true
     }
     if (args.contains("-r")) {
         println("Welcome to TLDStack REPL")
         functions.pushInput()
         functions.parseStack()
-        while(true){
+        while (true) {
             print(">\t")
             val line = readLine() ?: continue
-            Parser().parseCode(line+"nD",false)
+            Parser().parseCode(line + "nD", false)
             println()
 
         }
     }
+
     //val flags = args.filter { (it.startsWith("--") && it.length > 3) || (it.startsWith("-") && it.length == 2) }
     if (args.filter { it == "-c" || it == "--code" || it == "--file" || it == "-f" }.size > 1) {
         System.err.println("Can only use one of '-c --code -f --file'")

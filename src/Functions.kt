@@ -11,7 +11,8 @@ object functions {
     }
 
     fun debug() {
-        stack.forEach { print(" " + it) }
+        print(stack.joinToString("_"))
+        //stack.forEach { print("_" + it) }
     }
 
     fun parseStack() {
@@ -136,12 +137,15 @@ object functions {
         stack.push(decimalresult)
         stack.push(stringresult)
     }
-    fun popHead(){
+
+    fun popHead() {
         stack.pop()
     }
-    fun popTail(){
+
+    fun popTail() {
         stack.popLast()
     }
+
     fun popPrint() {
         print(stack.pop())
     }
@@ -221,7 +225,7 @@ object functions {
         stack.push(result)
     }
 
-    fun difference(){
+    fun difference() {
         val temp = stack.pop()
         val a: Number = if (temp.toString().contains(".")) BigDecimal(temp.toString()) else BigInteger(temp.toString())
         val b: Number = if (stack.peek().toString().contains(".")) BigDecimal(stack.peek().toString()) else BigInteger(stack.peek().toString())
@@ -237,5 +241,88 @@ object functions {
         }
         stack.push(temp)
         stack.push(result)
+    }
+
+    fun division() {
+        val temp = stack.pop()
+        val a: Number = if (temp.toString().contains(".")) BigDecimal(temp.toString()) else BigInteger(temp.toString())
+        val b: Number = if (stack.peek().toString().contains(".")) BigDecimal(stack.peek().toString()) else BigInteger(stack.peek().toString())
+        var result: Number = BigInteger.ZERO
+        if (a is BigInteger && b is BigInteger) {
+            result = a / b
+        } else if (a is BigInteger && b is BigDecimal) {
+            result = BigDecimal(a.toString()) / b
+        } else if (a is BigDecimal && b is BigInteger) {
+            result = a / BigDecimal(b.toString())
+        } else if (a is BigDecimal && b is BigDecimal) {
+            result = a / b
+        }
+        stack.push(temp)
+        stack.push(result)
+    }
+
+    fun split() {
+        stack.pop().toString().toCharArray().forEach { stack.push(it.toString()) }
+    }
+
+    fun prime() {
+        val temp = stack.peek()
+        if (temp is BigInteger) {
+            if (!temp.isProbablePrime(5)) {
+                stack.push(false)
+                return
+            }
+            val two = BigInteger("2")
+            if (two != temp && BigInteger.ZERO == temp.mod(two)) {
+                stack.push(false)
+                return
+            }
+            var i = BigInteger("3")
+            while (i.multiply(i).compareTo(temp) < 1) {
+                if (BigInteger.ZERO == temp.mod(i)) {
+                    stack.push(false)
+                    return
+                }
+                i = i.add(two)
+            }
+
+            stack.push(true)
+
+        }
+    }
+    fun greater(){
+        val a = stack.pop()
+        val b = stack.peek()
+        var result= false
+        if(a is BigInteger && b is BigInteger){
+            result=a>b
+        }
+        stack.push(a)
+        stack.push(result)
+    }
+    fun less(){
+        val a = stack.pop()
+        val b = stack.peek()
+        var result= false
+        if(a is BigInteger && b is BigInteger){
+            result=a<b
+        }
+        stack.push(a)
+        stack.push(result)
+    }
+    fun equals(){
+        val a = stack.pop()
+        val b = stack.peek()
+        var result= false
+        if(a is BigInteger && b is BigInteger){
+            result=a==b
+        }
+        stack.push(a)
+        stack.push(result)
+    }
+    fun eval(){
+        val code = stack.peek().toString()
+        val parser = Parser()
+        parser.parseCode(code,false)
     }
 }
