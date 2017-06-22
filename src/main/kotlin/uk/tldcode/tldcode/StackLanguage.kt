@@ -1,3 +1,5 @@
+package uk.tldcode.tldcode
+
 import java.io.File
 import java.util.*
 
@@ -5,36 +7,39 @@ var stack = Stack()
 var input: List<String>? = null
 var debug = false
 val mappings = hashMapOf(
-        "+" to { functions.incrementHead() },
-        "_" to { functions.pushInput() },
-        "p" to { functions.parseStack() },
-        "D" to { functions.debug() },
-        "»" to { functions.incrementStack() },
-        "=" to { stack.clear() },
-        ">" to { functions.rotateRight() },
-        "<" to { functions.rotateLeft() },
-        "-" to { functions.decrementHead() },
-        "«" to { functions.decrementStack() },
-        "r" to { functions.reverse() },
-        "s" to { functions.sum() },
-        "P" to { functions.popPrint() },
-        "j" to { functions.join() },
-        "," to { functions.comma() },
-        "n" to { println() },
-        "e" to { functions.peekPrint() },
-        "c" to { functions.copy() },
-        "*" to { functions.product() },
-        "^" to { functions.power() },
-        "d" to { functions.difference() },
-        "v" to { functions.popHead() },
-        "V" to { functions.popTail() },
-        "|" to { functions.split() },
-        "/" to { functions.division() },
-        "\\" to { functions.prime() },
-        "G" to { functions.greater() },
-        "L" to { functions.less() },
-        "E" to { functions.equals() },
-        "&" to {functions.eval()}
+        "+" to functions::incrementHead,
+        "_" to functions::pushInput,
+        "p" to functions::parseStack,
+        "D" to functions::debug,
+        "»" to functions::incrementStack,
+        "=" to {stack.clear()},
+        ">" to functions::rotateRight,
+        "<" to functions::rotateLeft,
+        "-" to functions::decrementHead,
+        "«" to functions::decrementStack,
+        "r" to functions::reverse,
+        "s" to functions::sum,
+        "P" to functions::popPrint,
+        "j" to functions::join,
+        "," to functions::comma,
+        "n" to ::println,
+        "e" to functions::peekPrint,
+        "c" to functions::copy,
+        "*" to functions::product,
+        "^" to functions::power,
+        "d" to functions::difference,
+        "v" to functions::popHead,
+        "V" to functions::popTail,
+        "|" to functions::split,
+        "/" to functions::division,
+        "\\" to functions::prime,
+        "G" to functions::greater,
+        "L" to functions::less,
+        "E" to functions::equals,
+        "&" to functions::eval,
+        "m" to functions::mod,
+        "R" to functions::root,
+        "i" to functions::input
 )
 val variables = HashMap<String, Any>()
 

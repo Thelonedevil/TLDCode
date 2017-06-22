@@ -1,3 +1,4 @@
+package uk.tldcode.tldcode
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -324,5 +325,74 @@ object functions {
         val code = stack.peek().toString()
         val parser = Parser()
         parser.parseCode(code,false)
+    }
+
+    fun  mod() {
+        val temp = stack.pop()
+        val a: Number = if (temp.toString().contains(".")) BigDecimal(temp.toString()) else BigInteger(temp.toString())
+        val b: Number = if (stack.peek().toString().contains(".")) BigDecimal(stack.peek().toString()) else BigInteger(stack.peek().toString())
+        var result: Number = BigInteger.ZERO
+        if (a is BigInteger && b is BigInteger) {
+            result = a % b
+        } else if (a is BigInteger && b is BigDecimal) {
+            result = BigDecimal(a.toString()) % b
+        } else if (a is BigDecimal && b is BigInteger) {
+            result = a % BigDecimal(b.toString())
+        } else if (a is BigDecimal && b is BigDecimal) {
+            result = a % b
+        }
+        stack.push(temp)
+        stack.push(result)
+    }
+
+    fun root(){
+        val temp = stack.pop()
+        val a: Number = if (temp.toString().contains(".")) BigDecimal(temp.toString()) else BigInteger(temp.toString())
+        val b: Number = if (stack.peek().toString().contains(".")) BigDecimal(stack.peek().toString()) else BigInteger(stack.peek().toString())
+        var result: Number = BigDecimal.ZERO
+        if (a is BigInteger && b is BigInteger) {
+            result = BigDecimal(a.toString()).root(b.intValueExact())
+        } else if (a is BigInteger && b is BigDecimal) {
+            result = BigDecimal(a.toString()).root(b.intValueExact())
+        } else if (a is BigDecimal && b is BigInteger) {
+            result = BigDecimal(a.toString()).root(b.intValueExact())
+        } else if (a is BigDecimal && b is BigDecimal) {
+            result = a.root(b.intValueExact())
+        }
+        stack.push(temp)
+        stack.push(result)
+    }
+    fun input(){
+        var line:String=""
+        while(line.isEmpty()){
+                line= readLine()!!
+        }
+        stack.push(line)
+    }
+
+    private val SCALE = 10
+    private val ROUNDING_MODE = BigDecimal.ROUND_HALF_DOWN
+
+    fun BigDecimal.root(n:Int):BigDecimal{
+        return nthRoot(n, this, BigDecimal.valueOf(.1).movePointLeft(SCALE))
+    }
+
+    private fun nthRoot(n: Int, a: BigDecimal, p: BigDecimal): BigDecimal {
+        if (a < BigDecimal.ZERO) {
+            throw IllegalArgumentException("nth root can only be calculated for positive numbers")
+        }
+        if (a == BigDecimal.ZERO) {
+            return BigDecimal.ZERO
+        }
+        var xPrev = a
+        var x = a.divide(BigDecimal(n), SCALE, ROUNDING_MODE)  // starting "guessed" value...
+        while (x.subtract(xPrev).abs() > p) {
+            xPrev = x
+            x = BigDecimal.valueOf(n - 1.0)
+                    .multiply(x)
+                    .add(a.divide(x.pow(n - 1), SCALE, ROUNDING_MODE))
+                    .divide(BigDecimal(n), SCALE, ROUNDING_MODE)
+        }
+        return x
     }
 }

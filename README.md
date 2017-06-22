@@ -1,6 +1,7 @@
 # TLDCode
 
 TLDCode is a stack based language that is still very much a WIP
+
 ATM there are 31,symbols recognised:
 
 | Symbol | Function         | Description                                                                                                                   |
@@ -13,8 +14,8 @@ ATM there are 31,symbols recognised:
 | =      | clearStack()     | Clears the stack of all values                                                                                                |
 | >      | rotateRight()    | Rotates the stack to the right                                                                                                |
 | <      | rotateLeft()     | Rotates the stack to the left                                                                                                 |
-| -      | decrementHead()  | Decrements the head of the stack by 1 for numbers, and increments the code point by 1 for characters                          |
-| «      | decrementStack() | Decrements the full stack by 1 for numbers, and increments the code points by 1 for characters                                |
+| -      | decrementHead()  | Decrements the head of the stack by 1 for numbers, and decrements the code point by 1 for characters                          |
+| «      | decrementStack() | Decrements the full stack by 1 for numbers, and decrements the code points by 1 for characters                                |
 | r      | reverse()        | Reverse the stacks order                                                                                                      |
 | s      | sum()            | Sums the top two items in the stack                              |
 | P      | popPrint()       | Pops the top off the stack, and prints it                                                                                     |
@@ -36,7 +37,7 @@ ATM there are 31,symbols recognised:
 | d      | difference()     | Get the difference between the top two elements on the stack |
 | v      | popHead()        | Pops the top of the stack off |
 | V      | popTail()        | Pops the bottom of the stack off  |
-| |      | split()          | Splits the top of the stack |
+| &#124; | split()          | Splits the top of the stack |
 | /      | division()       | Divides the top of the stack by the second from the top |
 | \      | prime()          | Tests whether or not the top of the stack is prime, returns result to top of stack |
 | G      | greater()        | Tests where or not the top of the stack is greater than the second from the top, returns result to top of stack |
@@ -47,6 +48,8 @@ ATM there are 31,symbols recognised:
 | )      |                  | Ends a true code block |
 | [      |                  | Starts a false code block |
 | ]      |                  | Ends a false code block |
+| R      | root()           | Gets the nth root |
+| i      | input()          | Reads input from STDIN |
 
 | Code Block |Syntax | Description |
 |------------|-------|-------------|
