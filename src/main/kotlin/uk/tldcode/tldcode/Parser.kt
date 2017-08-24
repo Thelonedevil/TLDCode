@@ -2,7 +2,8 @@ package uk.tldcode.tldcode
 import java.math.BigDecimal
 import java.math.BigInteger
 
-class Parser {
+class Parser(val parent:Parser?) {
+    var infinteloop=false
     var loop = 0
     var charArray = false
     var string = false
@@ -193,6 +194,13 @@ class Parser {
                     currentVariableName += it
                     return@forEach
                 }
+                if(it=="∞"){
+                    infinteloop = true
+                    return@forEach
+                }
+                if( it=="b"){
+                    parent?.infinteloop=false
+                }
                 if (it == "S") {
                     loop += stack.size
                     if (debug) {
@@ -238,18 +246,21 @@ class Parser {
                 if (loop == 0) {
                     loop = 1
                 }
-                while (loop > 0) {
+                do{
+                while (loop > 0 || infinteloop) {
                     loop--
                     if (executeBlock) {
-                        val parser = Parser()
+                        val parser = Parser(this)
                         parser.parseCode(currentBlock, false)
                         continue
                     }
-                    mappings[it.toString()]?.invoke()
+                    mappings[it]?.invoke()
                     if (debug) {
-                        System.err.println("Executed: $it: ${mappings[it.toString()]}")
+                        System.err.println("Executed: $it: ${mappings[it]}")
                     }
                 }
+                }while(infinteloop)
+
                 executeBlock = false
                 loop = 0
             } catch(t: Throwable) {

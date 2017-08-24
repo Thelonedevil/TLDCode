@@ -39,7 +39,8 @@ val mappings = hashMapOf(
         "&" to functions::eval,
         "m" to functions::mod,
         "R" to functions::root,
-        "i" to functions::input
+        "i" to functions::input,
+        "Ŝ" to functions::swap
 )
 val variables = HashMap<String, Any>()
 
@@ -60,7 +61,7 @@ fun main(args: Array<String>) {
         while (true) {
             print(">\t")
             val line = readLine() ?: continue
-            Parser().parseCode(line + "nD", false)
+            Parser(null).parseCode(line + "nD", false)
             println()
 
         }
@@ -81,7 +82,7 @@ fun main(args: Array<String>) {
         val filepath = args[args.indexOf("--file") + 1]
         code = File(filepath).readText()
     }
-    val parser = Parser()
+    val parser = Parser(null)
     parser.parseCode(code)
 
 }

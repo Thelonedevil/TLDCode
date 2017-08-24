@@ -50,6 +50,9 @@ ATM there are 31,symbols recognised:
 | ]      |                  | Ends a false code block |
 | R      | root()           | Gets the nth root |
 | i      | input()          | Reads input from STDIN |
+| Ŝ      | swap()           | Swaps the top 2 elements of the stack |
+| ∞      |                  | Repeats the following symbol, or repeatable code block, forever. |
+| b      |                  | Breaks out of the infinite loop |
 
 | Code Block |Syntax | Description |
 |------------|-------|-------------|

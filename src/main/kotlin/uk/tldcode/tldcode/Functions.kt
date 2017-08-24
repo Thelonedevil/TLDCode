@@ -323,7 +323,7 @@ object functions {
     }
     fun eval(){
         val code = stack.peek().toString()
-        val parser = Parser()
+        val parser = Parser(null)
         parser.parseCode(code,false)
     }
 
@@ -369,14 +369,19 @@ object functions {
         }
         stack.push(line)
     }
+    fun swap(){
+        val a = stack.pop()
+        val b = stack.pop()
+        stack.push(a)
+        stack.push(b)
+    }
 
     private val SCALE = 10
     private val ROUNDING_MODE = BigDecimal.ROUND_HALF_DOWN
 
-    fun BigDecimal.root(n:Int):BigDecimal{
+    fun BigDecimal.root(n:Int):BigDecimal {
         return nthRoot(n, this, BigDecimal.valueOf(.1).movePointLeft(SCALE))
     }
-
     private fun nthRoot(n: Int, a: BigDecimal, p: BigDecimal): BigDecimal {
         if (a < BigDecimal.ZERO) {
             throw IllegalArgumentException("nth root can only be calculated for positive numbers")
